@@ -10,8 +10,8 @@ PHP 5.3 and php5-curl are required
 Copy the contents of `credentials.php.sample` to a new `credentials.php` file, and update with your API keys from Twitter.
 
 Initialize the codebird submodule by executing
-`git submodule init`
-`git submodule update`
+-	`git submodule init`
+-	`git submodule update`
 
 ## Parameters
 The following GET parameters are accepted by the script.
