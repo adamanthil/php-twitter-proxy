@@ -54,36 +54,41 @@ function relativeTime($ts) {
 	}
 }
 
-// Get authenticated
-\Codebird\Codebird::setConsumerKey(CONSUMER_KEY, CONSUMER_SECRET);
-$cb = \Codebird\Codebird::getInstance();
-$cb->setToken(ACCESS_TOKEN, ACCESS_TOKEN_SECRET);
-
-// Make the REST call
-$params = array(
-	'screen_name' => $screenName,
-	'count' => $numTweets * 10,	// Include extra to make sure we get enough data from the API
-	'exclude_replies' => $excludeReplies,
-	'include_rts' => $includeRts
-);
-
-$data = (array) $cb->statuses_userTimeline($params);
-
 $output = array();
-$count = 0;
-foreach($data as $tweet) {
-	if(is_object($tweet)) {
-		$time = new \DateTime($tweet->created_at);
-		$output[] = array(
-			'tweet' => $tweet->text,
-			'time' => relativeTime($time->format('U'))
-		);
-		$count++;
+if($screenName && $numTweets) {
+
+	// Get authenticated
+	\Codebird\Codebird::setConsumerKey(CONSUMER_KEY, CONSUMER_SECRET);
+	$cb = \Codebird\Codebird::getInstance();
+	$cb->setToken(ACCESS_TOKEN, ACCESS_TOKEN_SECRET);
+
+	// Make the REST call
+	$params = array(
+		'screen_name' => $screenName,
+		'count' => $numTweets * 10,	// Include extra to make sure we get enough data from the API
+		'exclude_replies' => $excludeReplies,
+		'include_rts' => $includeRts
+	);
+
+	$data = (array) $cb->statuses_userTimeline($params);
+
+	$output = array();
+	$count = 0;
+	foreach($data as $tweet) {
+		if(is_object($tweet)) {
+			$time = new \DateTime($tweet->created_at);
+			$output[] = array(
+				'tweet' => $tweet->text,
+				'time' => relativeTime($time->format('U'))
+			);
+			$count++;
+		}
+
+		// Twitter's API doesn't always return the full count
+		// so make sure we only get 2 tweets
+		if($count >= $numTweets) break;
 	}
 
-	// Twitter's API doesn't always return the full count
-	// so make sure we only get 2 tweets
-	if($count >= $numTweets) break;
 }
 
 // Output result in JSON, getting it ready for jQuery to process
