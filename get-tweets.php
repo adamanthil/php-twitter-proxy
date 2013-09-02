@@ -92,6 +92,7 @@ if($screenName && $numTweets) {
 }
 
 // Output result in JSON, getting it ready for jQuery to process
+header('Content-type: application/json');
 echo json_encode($output);
 
 ?>
