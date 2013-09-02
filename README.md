@@ -15,10 +15,10 @@ Initialize the codebird submodule by executing
 
 ## Parameters
 The following GET parameters are accepted by the script.
-`screen_name` - Twitter screen name (required)
-`count` - Number of tweets to return (required)
-`exclude_replies` - Whether to exclude @ replies. Accepted values 0 or 1. Default is 1 (optional)
-`include_rts` - Whether to exclude retweets. Accepted values 0 or 1. Default is 1 (optional)
+-	`screen_name` - Twitter screen name (required)
+-	`count` - Number of tweets to return (required)
+-	`exclude_replies` - Whether to exclude @ replies. Accepted values 0 or 1. Default is 1 (optional)
+-	`include_rts` - Whether to exclude retweets. Accepted values 0 or 1. Default is 1 (optional)
 
 ## Output
 The output is a json array of objects corresponding to each tweet. Each object has a `tweet` and `time` parameter for the tweet text and relative time string respectively.
