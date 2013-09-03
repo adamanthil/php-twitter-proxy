@@ -77,8 +77,18 @@ if($screenName && $numTweets) {
 	foreach($data as $tweet) {
 		if(is_object($tweet)) {
 			$time = new \DateTime($tweet->created_at);
+			$tweetText = $tweet->text;
+			$tweetHtml = $tweetText;
+
+			$offset = 0;
+			foreach($tweet->entities->urls as $url) {
+				$link = "<a href='{$url->url}' target='_blank'>{$url->display_url}</a>";
+				$tweetHtml = str_replace($url->url, $link, $tweetHtml);
+			}
+
 			$output[] = array(
-				'tweet' => $tweet->text,
+				'tweet_html' => $tweetHtml,
+				'tweet_text' => $tweetText,
 				'time' => relativeTime($time->format('U'))
 			);
 			$count++;

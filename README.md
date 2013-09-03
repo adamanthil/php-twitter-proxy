@@ -21,4 +21,4 @@ The following GET parameters are accepted by the script.
 -	`include_rts` - Whether to exclude retweets. Accepted values 0 or 1. Default is 1 (optional)
 
 ## Output
-The output is a json array of objects corresponding to each tweet. Each object has a `tweet` and `time` parameter for the tweet text and relative time string respectively.
+The output is a json array of objects corresponding to each tweet. Each object has a `tweet_html`, `tweet_text`, and `time` parameter for the tweet itself (with links converted to anchor tags), raw tweet text, and relative time string respectively.
